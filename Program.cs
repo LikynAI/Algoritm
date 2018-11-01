@@ -10,21 +10,34 @@ namespace ConsoleApp3
 	{
 		static void Main(string[] args)
 		{
-			int[] vs = CreateMassive(1000000);
-			int[] vs2 = vs;
+			int[] vs = CreateMassive(10000);
 
+			Console.WriteLine("Start 1");
 			DateTime start = DateTime.Now;
-			Puzirok(vs);
-			Console.WriteLine((start - DateTime.Now).Milliseconds);
-
-			start = DateTime.Now;
-			PuzirokV2(vs2);
+			Shaker(vs);
 			Console.WriteLine((start - DateTime.Now).Milliseconds);
 
 			Console.ReadLine();
 		}
 
-		public static int[] Puzirok(int []a)
+		private static int BinSearch(int[] a, int b)
+		{
+			int left = 0;
+			int right = a.Length - 1;
+			while (left != right)
+			{
+				int tryindex = (left + right) / 2;
+
+				if (a[tryindex] > b) { right = tryindex; }
+				else if (a[tryindex] < b) { left = tryindex; }
+				else { return tryindex; }
+			}
+			return -1;
+		}
+
+
+
+		private static int[] Puzirok(int []a)
 		{
 			for (int i = 0; i < a.Length; i++)
 			{
@@ -43,9 +56,12 @@ namespace ConsoleApp3
 
 		private static int[] PuzirokV2(int[] a)
 		{
+			
 			int i = 0;
-			while( i < a.Length)
+			bool c = true;
+			while (c)
 			{
+				c = false;
 				int j = 0;
 				while ( j < a.Length - 1)
 				{
@@ -54,8 +70,44 @@ namespace ConsoleApp3
 						int temp = a[j];
 						a[j] = a[j + 1];
 						a[j + 1] = temp;
+						c = true;
 					}
 					j++;
+				}
+				i++;
+			}
+			return a;
+		}
+
+		private static int[] Shaker(int[] a)
+		{
+			int i = 0;
+			int c = 1;
+			int j;
+			while (c == 1 && i < a.Length / 2)
+			{
+				c = j = 0;
+				while (j < a.Length - 1)
+				{
+					if (a[j] > a[j + 1])
+					{
+						int temp = a[j];
+						a[j] = a[j + 1];
+						a[j + 1] = temp;
+					}
+					j++;
+				}
+				j = a.Length - 1;
+				while (j > 1)
+				{
+					if (a[j] < a[j - 1])
+					{
+						int temp = a[j - 1];
+						a[j - 1] = a[j];
+						a[j] = temp;
+						c = 1;
+					}
+					j--;
 				}
 				i++;
 			}
@@ -79,7 +131,7 @@ namespace ConsoleApp3
 			int i = 0;
 			while (i < v)
 			{
-				mass[i] = r.Next(10);
+				mass[i] = r.Next(1000);
 				i++;
 			}
 			return mass;
