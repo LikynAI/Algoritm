@@ -59,13 +59,12 @@ namespace ConsoleApp4
 			}
 
 			int o = 0;
+			hodi.Reverse();
 			foreach (kon k in hodi)
 			{
 				Console.SetCursorPosition(k.x*3, k.y*2);
 				Console.Write(++o);
 			}
-
-			Console.ReadLine();
 		}
 	}
 }
