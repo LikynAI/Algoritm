@@ -28,12 +28,12 @@ namespace ConsoleApp4
 		/// <param name="mas"></param>
 		/// <param name="a"></param> указывает сколько ближайших клеток должен пропустить конь
 		/// <returns></returns>
-		public bool move( int[,] mas, int a)
+		public bool move(int[,] mas, int a)
 		{
 			int tempo = -1;
-			for (int x = 0; x < 8; x++)
+			for (int x = 0; x < mas.GetLength(0); x++)
 			{
-				for (int y = 0; y < 8; y++)
+				for (int y = 0; y < mas.GetLength(1); y++)
 				{
 					if (mas[x,y] == 0 && Possible(x, y))
 					{

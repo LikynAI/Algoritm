@@ -10,30 +10,50 @@ namespace ConsoleApp4
 	{
 		static void Main(string[] args)
 		{
-			int[,] doska = new int[8,8];
+			int[,] doska = new int[3,10];
 
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < doska.GetLength(0); i++)
 			{
-				for (int j = 0; j < 8; j++)
+				for (int j = 0; j < doska.GetLength(1); j++)
 				{
 					doska[i, j] = 0;
 				}
 			}
 
-			int[] vozvrati = new int[65];
+			Stack<kon> hodi = Solution(doska);
+
+			int o = doska.Length;
+			
+			foreach (kon k in hodi)
+			{
+				Console.SetCursorPosition(k.x*3, k.y*2);
+				Console.Write(o--);
+			}
+
+			Console.ReadLine();
+		}
+
+		/// <summary>
+		/// Решает задочу о ходе коня для заданной доски
+		/// </summary>
+		/// <param name="doska"></param> 
+		/// <returns></returns>
+		public static Stack<kon> Solution(int[,] doska)
+		{
+			int[] vozvrati = new int[doska.Length];
 			foreach (int i in vozvrati)
 			{
 				vozvrati[i] = 0;
 			}
 
-			
-			kon kon1 = new kon(0,0);
 
-			Stack<kon> hodi = new Stack<kon>(); 
-			hodi.Push(new kon(kon1.x,kon1.y));
+			kon kon1 = new kon(0, 0);
+
+			Stack<kon> hodi = new Stack<kon>();
+			hodi.Push(new kon(kon1.x, kon1.y));
 
 			int step = 0;
-			while (step != 63)
+			while (step != doska.Length-1)
 			{
 				doska[kon1.x, kon1.y] = 1;
 				if (kon1.move(doska, vozvrati[hodi.Count]))
@@ -42,7 +62,7 @@ namespace ConsoleApp4
 					hodi.Push(kont);
 					step++;
 				}
-				else 
+				else
 				{
 					doska[kon1.x, kon1.y] = 0;
 
@@ -57,14 +77,8 @@ namespace ConsoleApp4
 					vozvrati[hodi.Count]++;
 				}
 			}
-
-			int o = 0;
-			hodi.Reverse();
-			foreach (kon k in hodi)
-			{
-				Console.SetCursorPosition(k.x*3, k.y*2);
-				Console.Write(++o);
-			}
+			return hodi;
 		}
+
 	}
 }
