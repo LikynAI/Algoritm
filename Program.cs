@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ConsoleApp4
 {
@@ -10,7 +7,7 @@ namespace ConsoleApp4
 	{
 		static void Main(string[] args)
 		{
-			int[,] doska = new int[3,10];
+			int[,] doska = new int[5,10];
 
 			for (int i = 0; i < doska.GetLength(0); i++)
 			{
@@ -20,14 +17,14 @@ namespace ConsoleApp4
 				}
 			}
 
-			Stack<kon> hodi = Solution(doska);
+			kon[] hodi = Solution(doska);
 
-			int o = doska.Length;
+			int o = 0;
 			
 			foreach (kon k in hodi)
 			{
 				Console.SetCursorPosition(k.x*3, k.y*2);
-				Console.Write(o--);
+				Console.Write(++o);
 			}
 
 			Console.ReadLine();
@@ -38,7 +35,7 @@ namespace ConsoleApp4
 		/// </summary>
 		/// <param name="doska"></param> 
 		/// <returns></returns>
-		public static Stack<kon> Solution(int[,] doska)
+		public static kon[] Solution(int[,] doska)
 		{
 			int[] vozvrati = new int[doska.Length];
 			foreach (int i in vozvrati)
@@ -49,32 +46,30 @@ namespace ConsoleApp4
 
 			kon kon1 = new kon(0, 0);
 
-			Stack<kon> hodi = new Stack<kon>();
-			hodi.Push(new kon(kon1.x, kon1.y));
+			kon[] hodi = new kon[doska.Length];
+			hodi[0] = new kon(kon1.x, kon1.y);
 
 			int step = 0;
 			while (step != doska.Length-1)
 			{
 				doska[kon1.x, kon1.y] = 1;
-				if (kon1.move(doska, vozvrati[hodi.Count]))
+				if (kon1.move(doska, vozvrati[step]))
 				{
-					kon kont = new kon(kon1.x, kon1.y);
-					hodi.Push(kont);
 					step++;
+					hodi[step] = new kon(kon1.x, kon1.y); ;
 				}
 				else
 				{
 					doska[kon1.x, kon1.y] = 0;
 
+					vozvrati[step] = 0;
+
+					hodi[step] = null;
 					step--;
-
-					vozvrati[hodi.Count] = 0;
-
-					hodi.Pop();
-					kon kont = new kon(hodi.Peek());
+					kon kont = new kon(hodi[step]);
 					kon1 = kont;
-
-					vozvrati[hodi.Count]++;
+					
+					vozvrati[step]++;
 				}
 			}
 			return hodi;
