@@ -6,12 +6,17 @@ namespace ConsoleApp4
 	{
 		static void Main(string[] args)
 		{
-			CreateDoska(7, 7);
+			//CreateDoska(7, 7);
 
-			kon[] hodi = Solution(CreateDoska(7, 7));
+			//kon[] hodi = Solution(CreateDoska(7, 7));
 
-			Show(hodi);
+			//Show(hodi);
+			
 
+			int[] vs1 = new int[] {1,5,9,4,3,8,7 };
+			int[] vs2 = new int[] { 2,1, 8, 4, 7, 8, 5,};
+
+			Console.WriteLine(	Length.Find(vs1, vs2));
 			Console.ReadLine();
 		}
 
