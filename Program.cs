@@ -1,13 +1,29 @@
 ﻿using System;
 
-
 namespace ConsoleApp4
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			int[,] doska = new int[5,10];
+			CreateDoska(7, 7);
+
+			kon[] hodi = Solution(CreateDoska(7, 7));
+
+			Show(hodi);
+
+			Console.ReadLine();
+		}
+
+		/// <summary>
+		/// Создает доску размером v1 на v2
+		/// </summary>
+		/// <param name="v1"></param>
+		/// <param name="v2"></param>
+		/// <returns></returns>
+		private static int[,] CreateDoska(int v1, int v2)
+		{
+			int[,] doska = new int[v1, v2];
 
 			for (int i = 0; i < doska.GetLength(0); i++)
 			{
@@ -16,18 +32,7 @@ namespace ConsoleApp4
 					doska[i, j] = 0;
 				}
 			}
-
-			kon[] hodi = Solution(doska);
-
-			int o = 0;
-			
-			foreach (kon k in hodi)
-			{
-				Console.SetCursorPosition(k.x*3, k.y*2);
-				Console.Write(++o);
-			}
-
-			Console.ReadLine();
+			return doska;
 		}
 
 		/// <summary>
@@ -75,5 +80,19 @@ namespace ConsoleApp4
 			return hodi;
 		}
 
+		/// <summary>
+		/// выводит на консоль информацию о том как ходил конь
+		/// </summary>
+		/// <param name="hodi"></param>
+		public static void Show(kon[] hodi)
+		{
+			int o = 0;
+
+			foreach (kon k in hodi)
+			{
+				Console.SetCursorPosition(k.x * 3, k.y * 2);
+				Console.Write(++o);
+			}
+		}
 	}
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp4
 {
@@ -23,12 +19,12 @@ namespace ConsoleApp4
 		}
 
 		/// <summary>
-		/// передвигает коня на клетку
+		/// передвигает коня на n-ную клетку
 		/// </summary>
 		/// <param name="mas"></param>
-		/// <param name="a"></param> указывает сколько ближайших клеток должен пропустить конь
+		/// <param name="n"></param> указывает сколько ближайших клеток должен пропустить конь
 		/// <returns></returns>
-		public bool move(int[,] mas, int a)
+		public bool move(int[,] mas, int n)
 		{
 			int tempo = -1;
 			for (int x = 0; x < mas.GetLength(0); x++)
@@ -38,7 +34,7 @@ namespace ConsoleApp4
 					if (mas[x,y] == 0 && Possible(x, y))
 					{
 						tempo++;
-						if (a == tempo)
+						if (n == tempo)
 						{
 							this.x = x;
 							this.y = y;
