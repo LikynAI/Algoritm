@@ -13,10 +13,10 @@ namespace ConsoleApp4
 			//Show(hodi);
 			
 
-			int[] vs1 = new int[] {1,5,9,4,3,8,7 };
-			int[] vs2 = new int[] { 2,1, 8, 4, 7, 8, 5,};
+			int[] vs1 = new int[] { 1, 3, 5, 8, 5, 7, 2, 1, 9 };
+			int[] vs2 = new int[] { 2, 5, 8, 9, 4, 7, 8, 5, 1 };
 
-			Console.WriteLine(	Length.Find(vs1, vs2));
+			Console.WriteLine(	Length.Fin(vs1, vs2));
 			Console.ReadLine();
 		}
 
