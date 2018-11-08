@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp5
 {
@@ -23,7 +19,7 @@ namespace ConsoleApp5
 			if (start == 13) { start = 0; }
 		}
 
-		public int Peek(int v)
+		public int Last(int v)
 		{
 			if (v > 12){ throw new IndexOutOfRangeException(); }
 			else return vs[start+v-1];
@@ -33,9 +29,16 @@ namespace ConsoleApp5
 		{
 			while (end != start)
 			{
-				Console.WriteLine(vs[end--]);
-				if (end == -1) { end = 12; }
+				start--;
+				if (start == -1) { start = 12; }
+				Console.WriteLine(vs[start]);
 			}
+		}
+
+		public bool Empty()
+		{
+			if (start == end) { return true; }
+			else return false;
 		}
 	}
 }
