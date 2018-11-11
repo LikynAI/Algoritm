@@ -56,13 +56,28 @@ namespace ConsoleApp6
 
 		public int Find(int n)
 		{
-			for (int i = 1; i < tree.Length; i = i )
+			int i = 1;
+			while (i < tree.Length)
 			{
 				if (n < tree[i]) { i = i * 2; }
 				else if (n > tree[i]) { i = i * 2 + 1; }
 				else return i;
 			}
 			return -1;
+		}
+
+		public void rLR(int i)
+		{
+			Console.WriteLine(tree[i]);
+			if (i * 2 < tree.Length) { rLR(i * 2); }
+			if (i * 2 + 1 < tree.Length) { rLR(i * 2 + 1); }
+		}
+
+		public void LrR(int i)
+		{
+			Console.WriteLine(tree[i]);
+			if (i * 2 < tree.Length) { rLR(i * 2); }
+			if (i * 2 + 1 < tree.Length) { rLR(i * 2 + 1); }
 		}
 	}
 }
