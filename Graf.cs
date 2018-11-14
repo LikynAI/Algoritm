@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -27,14 +29,35 @@ namespace ConsoleApp7
 			matrix[p2, p1] = weight;
 		}
 
-		public void ObhodVGlubinu()
+		public bool ObhodVGlubinu(int start,int end)
 		{
+			int[] vs = new int[matrix.GetLength(0)];
+			vs[start] = 1;
+			Stack<int> tempo = new Stack<int>();
 
+			while (true)
+			{
+				for (int i = 0; i < matrix.Length; i++)
+				{
+					if (matrix[start, i] > -1)
+					{
+						if (vs[i] == 0)
+						{
+							tempo.Push(i);
+						}
+						vs[i] = 1;
+					}
+				}
+				if (tempo.Count == 0) { break; }
+				start = tempo.Pop();
+			}
+
+			if (vs[end] == 1) { return true; }
+			else return false;
 		}
 
 		public void Show()
 		{
-
 			for (int i = 0; i < matrix.GetLength(0); i++)
 			{
 				for (int j = 0; j < matrix.GetLength(0); j++)
@@ -54,11 +77,17 @@ namespace ConsoleApp7
 			for (int i = 0; sr.EndOfStream; i++)
 			{
 				line = sr.ReadLine();
+				string tempo = string.Empty;
 				for (int j = 0; j < line.Length; i++)
 				{
-					matrix[i, j] = line[j];
+					while (line[j] != ';')
+					{
+						tempo += line[j];
+					}
+					matrix[i, j] = int.Parse(tempo);
 				}
 			}
+			sr.Close();
 			
 		}
 
@@ -69,8 +98,8 @@ namespace ConsoleApp7
 			{
 				for (int j = 0; j < matrix.GetLength(0); j++)
 				{
-					if (matrix[i,j] == 1) { s.Append("1"); }
-					else { s.Append("0"); }
+					if ( matrix[i, j] > -1 ) { s.Append(matrix[i,j] + ";"); }
+					else { s.Append(";"); }
 					
 				}
 				s.AppendLine();
