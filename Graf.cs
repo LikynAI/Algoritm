@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-
+/// <summary>
+/// на вход программа получает матрицу в которой -1 означает отсутствие дорогииз пункта в пункт
+/// </summary>
 namespace ConsoleApp7
 {
 	public class Graf
@@ -125,9 +126,9 @@ namespace ConsoleApp7
 			{
 				for (int i = 0; i < matrix.GetLength(0); i++)
 				{
-					if (matrix[start, i] != -1)
+					if (matrix[start, i] != -1 && matrix[start, i] != 0)
 					{
-						if ((matrix[start, i]+puti[start] < puti[i] || puti[i] == 0) && start != i)
+						if ((matrix[start, i]+puti[start] < puti[i] || puti[i] == 0) )
 						{
 							puti[i] = matrix[start, i] + puti[start];							
 							next.Push(i);						

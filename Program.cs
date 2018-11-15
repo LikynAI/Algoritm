@@ -16,7 +16,7 @@ namespace ConsoleApp7
 			g.Show();
 			Console.WriteLine();
 
-			int[] i = g.FindMinPathFrom(0);
+			int[] i = g.FindMinPathFrom(2);
 
 			foreach (int j in i)
 			{
