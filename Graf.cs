@@ -117,13 +117,13 @@ namespace ConsoleApp7
 
 		public int[] FindMinPathFrom(int start)
 		{
+			int rememb = start;
 			int[] puti = new int[matrix.GetLength(0)];
 			Stack<int> next = new Stack<int>();
 
-
 			while (true)
 			{
-				for (int i = start; i < matrix.GetLength(0); i++)
+				for (int i = 0; i < matrix.GetLength(0); i++)
 				{
 					if (matrix[start, i] != -1)
 					{
@@ -137,6 +137,7 @@ namespace ConsoleApp7
 				if (next.Count == 0) { break; }
 				start = next.Pop();
 			}
+			puti[rememb] = 0;
 			return puti;
 		}
 	}
