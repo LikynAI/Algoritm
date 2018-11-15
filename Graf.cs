@@ -12,18 +12,33 @@ namespace ConsoleApp7
 	{
 		public int[,] matrix { get; private set; }
 
-		public Graf() { }
-
+		/// <summary>
+		/// Создает пустую матрицу графа с заданым размером
+		/// </summary>
+		/// <param name="v"></param>
 		public Graf(int v)
 		{
 			matrix = new int[v, v];
 
 			for (int i = 0; i < v; i++)
 			{
+				for (int j = 0; j < v; j++)
+				{
+					Add(i,j,-1);
+				}
+			}
+			for (int i = 0; i < v; i++)
+			{
 				matrix[i, i] = 0;
 			}
 		}
 
+		/// <summary>
+		/// Добавляет в граф дорогу 
+		/// </summary>
+		/// <param name="p1"></param> из р1
+		/// <param name="p2"></param> в р2
+		/// <param name="weight"></param> весом weight 
 		public void Add(int p1, int p2, int weight)
 		{
 			matrix[p1, p2] = weight;
@@ -57,6 +72,9 @@ namespace ConsoleApp7
 			else return false;
 		}
 
+		/// <summary>
+		/// Выводит матрицу на экран
+		/// </summary>
 		public void Show()
 		{
 			for (int i = 0; i < matrix.GetLength(0); i++)
@@ -69,6 +87,11 @@ namespace ConsoleApp7
 			}
 		}
 
+		/// <summary>
+		/// Загружает граф из текстого файла и создает в матрицу
+		/// </summary>
+		/// <param name="path"></param> по пути
+		/// <param name="R"></param> Размером R
 		public Graf(string path, int R)
 		{
 			StreamReader sr = new StreamReader(path);
@@ -98,6 +121,10 @@ namespace ConsoleApp7
 			sr.Close();
 		}
 
+		/// <summary>
+		/// Сохраняет матрицу графа по указанному пути
+		/// </summary>
+		/// <param name="path"></param>
 		public void Save(string path)
 		{
 			StringBuilder s = new StringBuilder();
@@ -114,6 +141,11 @@ namespace ConsoleApp7
 			sw.Close();
 		}
 
+		/// <summary>
+		/// Возвращает массив с самыми короткими путями из заданного пункта 
+		/// </summary>
+		/// <param name="start"></param>
+		/// <returns></returns>
 		public int[] FindMinPathFrom(int start)
 		{
 			int rememb = start;
