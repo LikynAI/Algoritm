@@ -105,9 +105,7 @@ namespace ConsoleApp7
 			{
 				for (int j = 0; j < matrix.GetLength(0); j++)
 				{
-					if ( matrix[i, j] > -1 ) { s.Append(matrix[i,j] + ";"); }
-					else { s.Append(";"); }
-					
+					s.Append(matrix[i, j] + ";");
 				}
 				s.AppendLine();
 			}
