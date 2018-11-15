@@ -71,21 +71,27 @@ namespace ConsoleApp7
 		public Graf(string path, int R)
 		{
 			StreamReader sr = new StreamReader(path);
-			string line = sr.ReadLine();
+			string line;
 
 			matrix = new int[R,R];
-			for (int i = 0; sr.EndOfStream; i++)
+			for (int i = 0; i < R; i++)
 			{
 				line = sr.ReadLine();
 				string tempo = string.Empty;
 				int lineruner = 0;
-				for (int j = 0; j < line.Length; j++)
+				for (int j = 0; j < R; j++)
 				{
 					while (line[lineruner] != ';')
 					{
-						tempo += line[lineruner++];
+						tempo += line[lineruner];
+						lineruner++;
 					}
-					matrix[i, j] = int.Parse(tempo);
+					if (tempo != string.Empty)
+					{
+						matrix[i, j] = int.Parse(tempo);
+					}
+					tempo = string.Empty;
+					lineruner++;
 				}
 			}
 			sr.Close();
@@ -110,15 +116,29 @@ namespace ConsoleApp7
 			sw.Close();
 		}
 
-		public int FindMinPath(int start,int end)
+		public int[] FindMinPathFrom(int start)
 		{
-			if (ObhodVGlubinu(start, end))
+			int[] puti = new int[matrix.GetLength(0)];
+			Stack<int> next = new Stack<int>();
+			puti[start] = 0;
+
+			while (true)
 			{
-				int[] puti = new int[matrix.GetLength(0)];
-
-
+				for (int i = 0; i < matrix.GetLength(0); i++)
+				{
+					if (matrix[start, i] > -1)
+					{
+						if (matrix[start, i]+puti[start] < puti[i])
+						{
+							puti[i] = matrix[start, i] + puti[start];
+						}
+					}
+				}
+				if (next.Count == 0) { break; }
+				start = next.Pop();
 			}
-			else { return -1; }
+			return puti;
+
 		}
 	}
 }

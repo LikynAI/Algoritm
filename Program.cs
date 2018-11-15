@@ -11,9 +11,7 @@ namespace ConsoleApp7
 	{
 		static void Main(string[] args)
 		{
-			Graf g = new Graf(3);
-
-			g.Save("g.txt");
+			Graf g = new Graf("g.txt",4);
 
 			g.Show();
 			Console.ReadLine();
