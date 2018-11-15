@@ -37,7 +37,7 @@ namespace ConsoleApp7
 
 			while (true)
 			{
-				for (int i = 0; i < matrix.Length; i++)
+				for (int i = 0; i < matrix.GetLength(0); i++)
 				{
 					if (matrix[start, i] > -1)
 					{
@@ -68,21 +68,22 @@ namespace ConsoleApp7
 			}
 		}
 
-		public Graf(string path)
+		public Graf(string path, int R)
 		{
 			StreamReader sr = new StreamReader(path);
 			string line = sr.ReadLine();
 
-			matrix = new int[line.Length, line.Length];
+			matrix = new int[R,R];
 			for (int i = 0; sr.EndOfStream; i++)
 			{
 				line = sr.ReadLine();
 				string tempo = string.Empty;
-				for (int j = 0; j < line.Length; i++)
+				int lineruner = 0;
+				for (int j = 0; j < line.Length; j++)
 				{
-					while (line[j] != ';')
+					while (line[lineruner] != ';')
 					{
-						tempo += line[j];
+						tempo += line[lineruner++];
 					}
 					matrix[i, j] = int.Parse(tempo);
 				}
@@ -107,6 +108,17 @@ namespace ConsoleApp7
 			StreamWriter sw = new StreamWriter(path);
 			sw.Write(s);
 			sw.Close();
+		}
+
+		public int FindMinPath(int start,int end)
+		{
+			if (ObhodVGlubinu(start, end))
+			{
+				int[] puti = new int[matrix.GetLength(0)];
+
+
+			}
+			else { return -1; }
 		}
 	}
 }
