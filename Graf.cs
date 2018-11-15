@@ -95,7 +95,6 @@ namespace ConsoleApp7
 				}
 			}
 			sr.Close();
-			
 		}
 
 		public void Save(string path)
@@ -120,17 +119,18 @@ namespace ConsoleApp7
 		{
 			int[] puti = new int[matrix.GetLength(0)];
 			Stack<int> next = new Stack<int>();
-			puti[start] = 0;
+
 
 			while (true)
 			{
-				for (int i = 0; i < matrix.GetLength(0); i++)
+				for (int i = start; i < matrix.GetLength(0); i++)
 				{
-					if (matrix[start, i] > -1)
+					if (matrix[start, i] != -1)
 					{
-						if (matrix[start, i]+puti[start] < puti[i])
+						if ((matrix[start, i]+puti[start] < puti[i] || puti[i] == 0) && start != i)
 						{
-							puti[i] = matrix[start, i] + puti[start];
+							puti[i] = matrix[start, i] + puti[start];							
+							next.Push(i);						
 						}
 					}
 				}
@@ -138,7 +138,6 @@ namespace ConsoleApp7
 				start = next.Pop();
 			}
 			return puti;
-
 		}
 	}
 }
