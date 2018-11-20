@@ -6,17 +6,13 @@ namespace ConsoleApp8
 	{
 		static void Main(string[] args)
 		{
-
-			DateTime t = DateTime.Now;
-
-			int[] array = GetRandomArray(100000, 1000);
-
-			Shell(array);
-
-			Console.WriteLine((DateTime.Now - t));
-			Console.ReadLine();
+			
 		}
 
+		/// <summary>
+		/// Алгоритм Сортировки вставками
+		/// </summary>
+		/// <param name="array"></param>
 		public static void Vstavki(int[] array) 
 		{
 			for (int i = 0; i < array.Length; i++)
@@ -32,6 +28,10 @@ namespace ConsoleApp8
 			}
 		}
 
+		/// <summary>
+		/// Алгоритм Сортировки вставками с применением бинарного поиска
+		/// </summary>
+		/// <param name="array"></param>
 		public static void VstavkiV2(int[] array)
 		{
 			for (int i = 1; i < array.Length; i++)
@@ -71,6 +71,13 @@ namespace ConsoleApp8
 			}
 		}
 
+		/// <summary>
+		/// Модифицированный бинарный поиск для сортировки вставками
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <param name="end"></param>
+		/// <returns></returns>
 		private static int BinSearch(int[] a, int b, int end)
 		{
 			int L = 0;
@@ -87,6 +94,10 @@ namespace ConsoleApp8
 			return R;
 		}
 
+		/// <summary>
+		/// Алгоритм сортировки шелла, дополнинетльно использующий сортировку вставками
+		/// </summary>
+		/// <param name="array"></param>
 		public static void Shell(int[] array)
 		{
 			int temp = array.Length;
@@ -110,6 +121,10 @@ namespace ConsoleApp8
 			VstavkiV2(array);
 		}
 
+		/// <summary>
+		/// Сортировка подсчетом
+		/// </summary>
+		/// <param name="array"></param>
 		public static void CountingSort(int[] array)
 		{
 			int max = array[0];
@@ -139,7 +154,10 @@ namespace ConsoleApp8
 			}
 		}
 
-
+		/// <summary>
+		/// Сортировка пузырьком
+		/// </summary>
+		/// <param name="a"></param>
 		private static void Puzirok(int[] a)
 		{
 			for (int i = 0; i < a.Length; i++)
@@ -225,7 +243,12 @@ namespace ConsoleApp8
 			}
 		}
 
-		public static void min(int[] arr,int start)
+		/// <summary>
+		/// Сортровка Выбором
+		/// </summary>
+		/// <param name="arr"></param>
+		/// <param name="start"></param>
+		public static void Vibor(int[] arr,int start)
 		{
 			if (start != arr.Length)
 			{
@@ -242,7 +265,7 @@ namespace ConsoleApp8
 				arr[memoryofindex] = arr[start];
 				arr[start] = tempo;
 
-				min(arr, start + 1);
+				Vibor(arr, start + 1);
 				
 			}
 		}
