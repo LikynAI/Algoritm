@@ -38,35 +38,26 @@ namespace ConsoleApp8
 			{
 				if (array[i] < array[i - 1])
 				{
-					
+
 					int SerchingElement = array[i];
 
 					int index = BinSearch(array, SerchingElement, i);
 
-					while (index > 0 && array[index] >= SerchingElement )
+					while (index > 0 && array[index] >= SerchingElement)
 					{
 						index--;
 					}
 
 					int j = 0;
-
 					if (index == -1)
+					{ j++; }
+
+					while (i > j)
 					{
-						while (i > j )
-						{
-							array[i - j] = array[i - j - 1];
-							j++;
-						}
-						array[i - j] = SerchingElement;
-					}else
-					{
-						while (i - index > j + 1)
-						{
-							array[i - j] = array[i - j - 1];
-							j++;
-						}
-						array[i - j] = SerchingElement;
+						array[i - j] = array[i - j - 1];
+						j++;
 					}
+					array[i - j] = SerchingElement;
 				}
 			}
 		}
