@@ -7,40 +7,138 @@ namespace ConsoleApp8
 		static void Main(string[] args)
 		{
 
-			//DateTime t = DateTime.Now;
-			//for (int i = 0; i < 5000; i++)
-			//{
-			//	int[] array = GetRandomArray(100000, 100);
-			//	QuickSort(array,0, array.Length-1);
-			//}
-			//Console.WriteLine(DateTime.Now - t);
+			DateTime t = DateTime.Now;
 
-			//t = DateTime.Now;
-			//for (int i = 0; i < 5000; i++)
-			//{
-			//	int[] array = GetRandomArray(100000, 100);
-			//	quicksort(array, 0, array.Length - 1);
-			//}
-			//Console.WriteLine(DateTime.Now - t);
+			int[] array = GetRandomArray(100000, 1000);
 
-			int[] array = GetRandomArray(1000, 10);
-			simpleCountingSort(array, 1000);
+			Shell(array);
 
+			Console.WriteLine((DateTime.Now - t));
 			Console.ReadLine();
 		}
 
-		public static void simpleCountingSort(int[] A, int k) // где k – длина массива А,										  // а 1000 – его максимальное значение
+		public static void Vstavki(int[] array) 
 		{
-			int[] C = new int[k];
-			for (int i = 0; i < k; i++)
-				C[i] = 0;
-			for (int i = 0; i < 1000; i++)
-				C[A[i]]++;
-			int b = 0;
-			for (int j = 0; j < k; j++)
-				for (int i = 0; i < C[j] - 1; i++)
-					A[b++] = j;
-		}
+			for (int i = 0; i < array.Length; i++)
+			{
+				int temp = array[i];
+				int j = i;
+				while (j > 0 && array[j - 1] > temp)
+				{
+					array[j] = array[j - 1];
+					array[j - 1] = temp;
+					j--;
+				}
+			}
+		}
+
+		public static void VstavkiV2(int[] array)
+		{
+			for (int i = 1; i < array.Length; i++)
+			{
+				if (array[i] < array[i - 1])
+				{
+					
+					int SerchingElement = array[i];
+
+					int index = BinSearch(array, SerchingElement, i);
+
+					while (index > 0 && array[index] >= SerchingElement )
+					{
+						index--;
+					}
+
+					int j = 0;
+
+					if (index == -1)
+					{
+						while (i > j )
+						{
+							array[i - j] = array[i - j - 1];
+							j++;
+						}
+						array[i - j] = SerchingElement;
+					}else
+					{
+						while (i - index > j + 1)
+						{
+							array[i - j] = array[i - j - 1];
+							j++;
+						}
+						array[i - j] = SerchingElement;
+					}
+				}
+			}
+		}
+
+		private static int BinSearch(int[] a, int b, int end)
+		{
+			int L = 0;
+			int R = end-1;
+			int m = R / 2;
+			while (L <= R && a[m] != b)
+			{
+				if (a[m] < b)
+					L = m + 1;
+				else
+					R = m - 1;
+				m = L + (R - L) / 2;
+			}
+			return R;
+		}
+
+		public static void Shell(int[] array)
+		{
+			int temp = array.Length;
+			while(temp != 0)
+			{
+				temp = temp / 2;
+
+				for (int i = 0; i < temp; i++)
+				{
+					for (int j = temp+i; j < array.Length; j += temp)
+					{
+						if (array[j] < array[j - temp])
+						{
+							int temp0 = array[j];
+							array[j] = array[j - temp];
+							array[j - temp] = temp0;
+						}
+					}
+				}				
+			}
+			VstavkiV2(array);
+		}
+
+		public static void CountingSort(int[] array)
+		{
+			int max = array[0];
+			for (int i = 0; i < array.Length; i++)
+			{
+				if (max < array[i]) { max = array[i]; }
+			}
+
+			int[] counter = new int[max+1];
+
+			for (int i = 0; i <array.Length; i++)
+			{
+				counter[array[i]]++;
+			}
+
+			int j = 0;
+
+			for (int i = 0; i < counter.Length; i++)
+			{
+				if (counter[i] != 0)
+				{
+					for (int tempo = 0; tempo < counter[i]; j++, tempo++)
+					{
+						array[j] = i;
+					}
+				}
+			}
+		}
+
 
 		private static void Puzirok(int[] a)
 		{
@@ -62,7 +160,7 @@ namespace ConsoleApp8
 		/// <summary>
 		/// Улучшенная сортировка пузырьком
 		/// </summary>
-		/// <param name="a"></param>
+		/// <param name="array"></param>
 		/// <returns></returns>
 		private static void PuzirokV2(int[] a)
 		{
@@ -91,7 +189,7 @@ namespace ConsoleApp8
 		/// <summary>
 		/// Улучшенная шейкерная сортировка
 		/// </summary>
-		/// <param name="a"></param>
+		/// <param name="array"></param>
 		/// <returns></returns>
 		private static void Shaker(int[] a)
 		{
@@ -192,11 +290,10 @@ namespace ConsoleApp8
 						int tempo = array[start];
 						array[start] = array[end];
 						array[end] = tempo;
-
 					}
 				}
-					QuickSort(array, _start, --end);
-					QuickSort(array, start, _end);			
+				QuickSort(array, _start, --end);
+				QuickSort(array, start, _end);			
 			}
 		}
 	}
